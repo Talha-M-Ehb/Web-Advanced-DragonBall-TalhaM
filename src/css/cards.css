@@ -1,7 +1,135 @@
-/* Cards grid layout placeholder */
+/* Grid Layout */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
   padding: 2rem 0;
+}
+
+/* Character Card */
+.character-card {
+  background-color: var(--secondary-color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+}
+
+.character-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3); /* Glow effect with primary color */
+}
+
+/* Card Image Area */
+.card-image-wrapper {
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-image-wrapper img {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+}
+
+.character-card:hover .card-image-wrapper img {
+  transform: scale(1.1); /* Zoom in effect on hover */
+}
+
+/* Card Content Area */
+.card-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.character-name {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  font-weight: 800;
+  margin-bottom: 0.2rem;
+}
+
+.character-race {
+  font-size: 0.9rem;
+  color: #a4b0be;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.character-ki {
+  font-weight: 600;
+  color: var(--text-color-dark);
+  font-size: 0.95rem;
+}
+
+.ki-value {
+  color: #f1c40f; /* Gold color for Ki values */
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #a4b0be;
+  padding: 3rem;
+}
+
+/* ------------------- Loading Skeletons ------------------- */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-card {
+  background-color: var(--secondary-color);
+  border-radius: 12px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.skeleton-img {
+  height: 300px;
+  width: 100%;
+  border-radius: 0;
+}
+
+.skeleton-text {
+  height: 20px;
+  margin: 1.5rem 1.5rem 0.5rem 1.5rem;
+  width: 60%;
+}
+
+.skeleton-text.short {
+  width: 40%;
+  margin-top: 0.5rem;
 }

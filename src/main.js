@@ -4,11 +4,22 @@ import './css/modal.css';
 import './css/responsive.css';
 
 import { fetchCharacters } from './js/api.js';
+import { renderCharacters, renderSkeletons } from './js/ui.js';
+
+// Application State
+let allCharacters = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
   console.log('DragonDex App Initialized');
   
-  // Phase 2: Fetch and log characters
-  const characters = await fetchCharacters();
-  console.log(`Initialization complete. Loaded ${characters.length} characters.`);
+  // Show loading skeletons immediately
+  renderSkeletons(12);
+  
+  // Fetch character data
+  allCharacters = await fetchCharacters();
+  
+  // Render the real data to the grid
+  renderCharacters(allCharacters);
+  
+  console.log(`Initialization complete. Rendered ${allCharacters.length} characters.`);
 });
