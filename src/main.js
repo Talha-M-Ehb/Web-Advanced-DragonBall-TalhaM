@@ -3,7 +3,12 @@ import './css/cards.css';
 import './css/modal.css';
 import './css/responsive.css';
 
-document.addEventListener('DOMContentLoaded', () => {
+import { fetchCharacters } from './js/api.js';
+
+document.addEventListener('DOMContentLoaded', async () => {
   console.log('DragonDex App Initialized');
-  // Further initialization will go here
+  
+  // Phase 2: Fetch and log characters
+  const characters = await fetchCharacters();
+  console.log(`Initialization complete. Loaded ${characters.length} characters.`);
 });
