@@ -1,0 +1,59 @@
+/* CSS Reset and Variables */
+:root {
+  --primary-color: #ff6b00;
+  --secondary-color: #2c3e50;
+  --bg-color-light: #f5f6fa;
+  --text-color-light: #2d3436;
+  --bg-color-dark: #1e272e;
+  --text-color-dark: #dcdde1;
+  
+  --font-main: 'Outfit', sans-serif;
+  --font-secondary: 'Roboto', sans-serif;
+
+  --transition-speed: 0.3s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-color-dark);
+  color: var(--text-color-dark);
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Base Layout */
+.navbar {
+  background-color: var(--secondary-color);
+  padding: 1rem 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar h1 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+main {
+  padding: 2rem 0;
+}
+
+.hidden {
+  display: none !important;
+}
