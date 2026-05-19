@@ -38,3 +38,35 @@ export const filterCharacters = (characters, filters) => {
     return matchRace && matchGender && matchAffiliation;
   });
 };
+
+/**
+ * Sorts characters based on the given sort type.
+ * @param {Array} characters - The array of character objects
+ * @param {string} sortType - The sorting type ('name-asc', 'name-desc', 'ki-asc', 'ki-desc')
+ * @returns {Array} The sorted array of characters
+ */
+export const sortCharacters = (characters, sortType) => {
+  // Create a copy to avoid mutating the original array
+  const sorted = [...characters];
+
+  // Helper to parse string "60.000.000" into a real number 60000000
+  const parseKi = (kiString) => {
+    if (!kiString) return 0;
+    const cleanString = kiString.replace(/[.,]/g, '');
+    const number = parseInt(cleanString, 10);
+    return isNaN(number) ? 0 : number;
+  };
+
+  switch (sortType) {
+    case 'name-asc':
+      return sorted.sort((a, b) => a.name.localeCompare(b.name));
+    case 'name-desc':
+      return sorted.sort((a, b) => b.name.localeCompare(a.name));
+    case 'ki-asc':
+      return sorted.sort((a, b) => parseKi(a.ki) - parseKi(b.ki));
+    case 'ki-desc':
+      return sorted.sort((a, b) => parseKi(b.ki) - parseKi(a.ki));
+    default:
+      return sorted;
+  }
+};

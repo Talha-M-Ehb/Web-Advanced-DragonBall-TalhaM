@@ -22,6 +22,13 @@
           <input type="text" id="search-input" placeholder="Search characters by name..." class="search-input" />
         </div>
         <div class="filters-container">
+          <select id="sort-filter" class="filter-select">
+            <option value="default">Sort By: Default</option>
+            <option value="name-asc">Name (A - Z)</option>
+            <option value="name-desc">Name (Z - A)</option>
+            <option value="ki-asc">Base Ki (Low to High)</option>
+            <option value="ki-desc">Base Ki (High to Low)</option>
+          </select>
           <select id="race-filter" class="filter-select">
             <option value="">All Races</option>
             <option value="Saiyan">Saiyan</option>

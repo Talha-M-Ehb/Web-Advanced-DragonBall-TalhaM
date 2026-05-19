@@ -5,11 +5,12 @@ import './css/responsive.css';
 
 import { fetchCharacters } from './js/api.js';
 import { renderCharacters, renderSkeletons } from './js/ui.js';
-import { searchCharacters, filterCharacters } from './js/filters.js';
+import { searchCharacters, filterCharacters, sortCharacters } from './js/filters.js';
 
 // Application State
 let allCharacters = [];
 let currentSearchTerm = '';
+let currentSort = 'default';
 let currentFilters = {
   race: '',
   gender: '',
@@ -23,6 +24,9 @@ const applyFiltersAndRender = () => {
   
   // Second, apply dropdown filters
   processedCharacters = filterCharacters(processedCharacters, currentFilters);
+  
+  // Third, apply sorting
+  processedCharacters = sortCharacters(processedCharacters, currentSort);
   
   // Render the final combined list
   renderCharacters(processedCharacters);
@@ -49,10 +53,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
   
-  // Setup Dropdown Filters
+  // Setup Dropdown Filters & Sorting
+  const sortFilter = document.getElementById('sort-filter');
   const raceFilter = document.getElementById('race-filter');
   const genderFilter = document.getElementById('gender-filter');
   const affiliationFilter = document.getElementById('affiliation-filter');
+  
+  if (sortFilter) {
+    sortFilter.addEventListener('change', (e) => {
+      currentSort = e.target.value;
+      applyFiltersAndRender();
+    });
+  }
   
   // Helper to update state and trigger re-render
   const handleFilterChange = (filterKey) => (e) => {
