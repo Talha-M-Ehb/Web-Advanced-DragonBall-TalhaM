@@ -1,7 +1,7 @@
 /**
- * Generates the HTML string for a single character card.
- * @param {Object} character - The character data object from the API
- * @returns {string} HTML string representing the character card
+ * Genereert de HTML-string voor een enkele personagekaart.
+ * @param {Object} character - Het personage-dataobject van de API
+ * @returns {string} HTML-string die de personagekaart vertegenwoordigt
  */
 export const createCharacterCard = (character) => {
   return `
@@ -22,8 +22,8 @@ export const createCharacterCard = (character) => {
 };
 
 /**
- * Generates the HTML string for a loading skeleton card.
- * @returns {string} HTML string for skeleton
+ * Genereert de HTML-string voor een laadskeletkaart.
+ * @returns {string} HTML-string voor skelet
  */
 export const createSkeletonCard = () => {
   return `

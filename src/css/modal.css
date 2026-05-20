@@ -1,13 +1,199 @@
-/* Modal layout placeholder */
+/* Modale Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  opacity: 1;
+  transition: opacity var(--transition-speed);
+  padding: 1rem;
+}
+
+.modal-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Modale Inhoudsbox */
+.modal-content {
+  background-color: var(--secondary-color);
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  border-radius: 12px;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+  animation: modal-slide-up 0.4s ease-out;
+}
+
+/* Scrollbar styling voor modaal venster */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+.modal-content::-webkit-scrollbar-track {
+  background: var(--bg-color-dark);
+}
+.modal-content::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+@keyframes modal-slide-up {
+  from { transform: translateY(50px) scale(0.95); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Sluitknop */
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: var(--text-color-dark);
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.close-modal:hover {
+  color: var(--primary-color);
+  transform: scale(1.1);
+}
+
+/* Modale Lay-out */
+.modal-header {
+  display: flex;
+  gap: 2rem;
+  padding: 3rem 2rem 2rem 2rem;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  align-items: center;
+}
+
+.modal-main-img {
+  width: 180px;
+  height: 250px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 15px rgba(255, 107, 0, 0.4));
+}
+
+.modal-info h2 {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+}
+
+.race-gender {
+  color: #a4b0be;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.stats p {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  color: #dcdde1;
+}
+
+.modal-section {
+  margin-bottom: 2.5rem;
+}
+
+.modal-section h3 {
+  font-size: 1.8rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.planet-img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  display: block;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.transformations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1.5rem;
+}
+
+.transformation-card {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1.5rem 1rem;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: transform 0.3s, background 0.3s;
+}
+
+.transformation-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.transformation-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.transformation-card span {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.transformation-card small {
+  color: #f1c40f;
+  font-weight: 600;
+}
+
+.no-data {
+  color: #a4b0be;
+  font-style: italic;
+}
+
+/* Modale Laadstatus */
+.modal-loading {
+  padding: 5rem 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
 }

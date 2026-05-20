@@ -1,34 +1,47 @@
 const API_BASE_URL = 'https://dragonball-api.com/api';
 
 /**
- * Fetches characters from the Dragon Ball API.
- * Uses async/await and includes error handling.
- * @param {number} limit - Number of characters to fetch (default 100 to get all 58 characters)
- * @returns {Promise<Array>} Array of character objects
+ * Haalt personages op van de Dragon Ball API.
+ * Gebruikt async/await en bevat foutafhandeling.
+ * @param {number} limit - Aantal op te halen personages (standaard 100)
+ * @returns {Promise<Array>} Array met personage-objecten
  */
 export const fetchCharacters = async (limit = 100) => {
   try {
-    // Start fetching data
-    console.log('Loading characters from API...');
-    
     const response = await fetch(`${API_BASE_URL}/characters?limit=${limit}`);
     
-    // Check if the response is successful (status 200-299)
+    // Controleer of het antwoord succesvol is (status 200-299)
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`HTTP fout! Status: ${response.status}`);
     }
     
     const data = await response.json();
-    
-    // Log the data to fulfill the requirement
-    console.log('Successfully fetched characters:', data.items);
-    
-    // The API wraps characters in an "items" array when paginated
     return data.items;
     
   } catch (error) {
-    // Handle loading errors gracefully
-    console.error('Failed to fetch characters:', error.message);
-    return []; // Return an empty array so the rest of the app doesn't crash
+    // Vang laadfouten netjes op
+    console.error('Fout bij het ophalen van personages:', error.message);
+    return []; 
+  }
+};
+
+/**
+ * Haalt de volledige details van één personage op basis van ID (inclusief transformaties en planeet).
+ * @param {number|string} id - De ID van het personage
+ * @returns {Promise<Object>} Personage-object met volledige details
+ */
+export const fetchCharacterById = async (id) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/characters/${id}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP fout! Status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Fout bij het ophalen van personage ${id}:`, error.message);
+    return null;
   }
 };

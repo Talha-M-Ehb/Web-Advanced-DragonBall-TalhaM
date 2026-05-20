@@ -1,4 +1,4 @@
-/* Grid Layout */
+/* Grid Lay-out */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -6,7 +6,7 @@
   padding: 2rem 0;
 }
 
-/* Character Card */
+/* Personagekaart */
 .character-card {
   background-color: var(--secondary-color);
   border-radius: 12px;
@@ -22,10 +22,10 @@
 
 .character-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3); /* Glow effect with primary color */
+  box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
 }
 
-/* Card Image Area */
+/* Kaartafbeelding Gebied */
 .card-image-wrapper {
   height: 300px;
   background-color: rgba(255, 255, 255, 0.05);
@@ -45,10 +45,10 @@
 }
 
 .character-card:hover .card-image-wrapper img {
-  transform: scale(1.1); /* Zoom in effect on hover */
+  transform: scale(1.1);
 }
 
-/* Card Content Area */
+/* Kaartinhoud Gebied */
 .card-content {
   padding: 1.5rem;
   flex-grow: 1;
@@ -79,7 +79,7 @@
 }
 
 .ki-value {
-  color: #f1c40f; /* Gold color for Ki values */
+  color: #f1c40f;
 }
 
 .no-results {
@@ -90,7 +90,7 @@
   padding: 3rem;
 }
 
-/* ------------------- Loading Skeletons ------------------- */
+/* ------------------- Laadskeletten ------------------- */
 .skeleton {
   background: linear-gradient(
     90deg,

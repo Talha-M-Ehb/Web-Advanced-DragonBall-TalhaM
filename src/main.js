@@ -3,11 +3,11 @@ import './css/cards.css';
 import './css/modal.css';
 import './css/responsive.css';
 
-import { fetchCharacters } from './js/api.js';
-import { renderCharacters, renderSkeletons } from './js/ui.js';
+import { fetchCharacters, fetchCharacterById } from './js/api.js';
+import { renderCharacters, renderSkeletons, openModal, showModalLoading } from './js/ui.js';
 import { searchCharacters, filterCharacters, sortCharacters } from './js/filters.js';
 
-// Application State
+// Applicatiestatus
 let allCharacters = [];
 let currentSearchTerm = '';
 let currentSort = 'default';
@@ -17,34 +17,24 @@ let currentFilters = {
   affiliation: ''
 };
 
-// Central function to apply all active search & dropdown filters
+// Centrale functie om alle actieve zoekopdrachten & dropdown filters toe te passen
 const applyFiltersAndRender = () => {
-  // First, search by name
   let processedCharacters = searchCharacters(allCharacters, currentSearchTerm);
-  
-  // Second, apply dropdown filters
   processedCharacters = filterCharacters(processedCharacters, currentFilters);
-  
-  // Third, apply sorting
   processedCharacters = sortCharacters(processedCharacters, currentSort);
-  
-  // Render the final combined list
   renderCharacters(processedCharacters);
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
-  console.log('DragonDex App Initialized');
+  console.log('DragonDex App Geïnitialiseerd');
   
-  // Show loading skeletons immediately
+  // Toon onmiddellijk laadskeletten
   renderSkeletons(12);
   
-  // Fetch character data
   allCharacters = await fetchCharacters();
-  
-  // Render the real data to the grid
   renderCharacters(allCharacters);
   
-  // Setup Search functionality
+  // Zoekfunctionaliteit instellen
   const searchInput = document.getElementById('search-input');
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -53,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
   
-  // Setup Dropdown Filters & Sorting
+  // Dropdown filters & sortering instellen
   const sortFilter = document.getElementById('sort-filter');
   const raceFilter = document.getElementById('race-filter');
   const genderFilter = document.getElementById('gender-filter');
@@ -66,7 +56,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
   
-  // Helper to update state and trigger re-render
+  // Klikgebeurtenissen op kaarten instellen voor de modale weergave
+  const gridContainer = document.getElementById('characters-grid');
+  if (gridContainer) {
+    gridContainer.addEventListener('click', async (e) => {
+      const card = e.target.closest('.character-card');
+      if (card) {
+        const characterId = card.getAttribute('data-id');
+        showModalLoading();
+        
+        const fullCharacter = await fetchCharacterById(characterId);
+        if (fullCharacter) {
+          openModal(fullCharacter);
+        }
+      }
+    });
+  }
+  
+  // Helper om status bij te werken en herweergave te activeren
   const handleFilterChange = (filterKey) => (e) => {
     currentFilters[filterKey] = e.target.value;
     applyFiltersAndRender();
@@ -76,5 +83,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (genderFilter) genderFilter.addEventListener('change', handleFilterChange('gender'));
   if (affiliationFilter) affiliationFilter.addEventListener('change', handleFilterChange('affiliation'));
   
-  console.log(`Initialization complete. Rendered ${allCharacters.length} characters.`);
+  console.log(`Initialisatie voltooid. ${allCharacters.length} personages weergegeven.`);
 });
