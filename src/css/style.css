@@ -122,3 +122,29 @@ main {
   outline: none;
   border-color: var(--primary-color);
 }
+
+/* Favorieten Toggle */
+.favorites-toggle-btn {
+  background-image: none;
+  padding-right: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.favorites-toggle-btn::before {
+  content: '🤍';
+  font-size: 1.1rem;
+}
+
+.favorites-toggle-btn.active {
+  background-color: rgba(255, 71, 87, 0.1);
+  color: #ff4757;
+  border-color: #ff4757;
+}
+
+.favorites-toggle-btn.active::before {
+  content: '❤️';
+}

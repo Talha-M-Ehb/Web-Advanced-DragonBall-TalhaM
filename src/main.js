@@ -6,6 +6,7 @@ import './css/responsive.css';
 import { fetchCharacters, fetchCharacterById } from './js/api.js';
 import { renderCharacters, renderSkeletons, openModal, showModalLoading } from './js/ui.js';
 import { searchCharacters, filterCharacters, sortCharacters } from './js/filters.js';
+import { toggleFavorite } from './js/storage.js';
 
 // Applicatiestatus
 let allCharacters = [];
@@ -14,7 +15,8 @@ let currentSort = 'default';
 let currentFilters = {
   race: '',
   gender: '',
-  affiliation: ''
+  affiliation: '',
+  favoritesOnly: false
 };
 
 // Centrale functie om alle actieve zoekopdrachten & dropdown filters toe te passen
@@ -56,10 +58,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
   
-  // Klikgebeurtenissen op kaarten instellen voor de modale weergave
+  // Favorieten Weergave knop
+  const favToggleBtn = document.getElementById('favorites-toggle');
+  if (favToggleBtn) {
+    favToggleBtn.addEventListener('click', () => {
+      currentFilters.favoritesOnly = !currentFilters.favoritesOnly;
+      favToggleBtn.classList.toggle('active', currentFilters.favoritesOnly);
+      applyFiltersAndRender();
+    });
+  }
+  
+  // Klikgebeurtenissen op kaarten instellen voor de modale weergave en favorieten
   const gridContainer = document.getElementById('characters-grid');
   if (gridContainer) {
     gridContainer.addEventListener('click', async (e) => {
+      // Controleer eerst of de hartjesknop (favoriet) is geklikt
+      const favBtn = e.target.closest('.favorite-btn');
+      if (favBtn) {
+        e.stopPropagation(); // Voorkom dat de modale weergave opent
+        const characterId = favBtn.getAttribute('data-id');
+        const isFav = toggleFavorite(characterId);
+        favBtn.classList.toggle('favorite-active', isFav);
+        
+        // Als we in 'Alleen Favorieten' modus zijn, herteken de lijst wanneer een favoriet wordt verwijderd
+        if (currentFilters.favoritesOnly && !isFav) {
+          applyFiltersAndRender();
+        }
+        return; // Stop hier, open het modaal venster niet
+      }
+      
       const card = e.target.closest('.character-card');
       if (card) {
         const characterId = card.getAttribute('data-id');

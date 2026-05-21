@@ -1,3 +1,5 @@
+import { getFavorites } from './storage.js';
+
 /**
  * Filtert de lijst van personages op naam.
  * @param {Array} characters - De array met personage-objecten
@@ -16,14 +18,13 @@ export const searchCharacters = (characters, searchTerm) => {
 };
 
 /**
- * Past meerdere dropdown-filters toe (ras, geslacht, affiliatie).
+ * Past meerdere dropdown-filters toe (ras, geslacht, affiliatie, favorieten).
  * @param {Array} characters - De array met personage-objecten
- * @param {Object} filters - Object met actieve filters {race: '', gender: '', affiliation: ''}
+ * @param {Object} filters - Object met actieve filters {race: '', gender: '', affiliation: '', favoritesOnly: false}
  * @returns {Array} De gefilterde array met personages
  */
 export const filterCharacters = (characters, filters) => {
   return characters.filter(char => {
-    // Helper-functie voor veilige, hoofdletterongevoelige vergelijking
     const match = (charValue, filterValue) => {
       if (!filterValue) return true;
       if (!charValue) return false;
@@ -34,8 +35,11 @@ export const filterCharacters = (characters, filters) => {
     const matchGender = match(char.gender, filters.gender);
     const matchAffiliation = match(char.affiliation, filters.affiliation);
     
+    // Controleer favorieten
+    const matchFavorites = !filters.favoritesOnly || getFavorites().includes(char.id.toString());
+    
     // Combineer alle filters met EN logica (alle voorwaarden moeten waar zijn)
-    return matchRace && matchGender && matchAffiliation;
+    return matchRace && matchGender && matchAffiliation && matchFavorites;
   });
 };
 
