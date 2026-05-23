@@ -1,16 +1,29 @@
-/* CSS Reset en Variabelen */
+
 :root {
   --primary-color: #ff6b00;
   --secondary-color: #2c3e50;
-  --bg-color-light: #f5f6fa;
-  --text-color-light: #2d3436;
-  --bg-color-dark: #1e272e;
-  --text-color-dark: #dcdde1;
-  
+  --bg-color-main: #1e272e;
+  --text-color-main: #dcdde1;
+  --overlay-bg: rgba(255, 255, 255, 0.05);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --heading-color: #ffffff;
+  --skeleton-light: rgba(255, 255, 255, 0.05);
+  --skeleton-dark: rgba(255, 255, 255, 0.1);
+
   --font-main: 'Outfit', sans-serif;
   --font-secondary: 'Roboto', sans-serif;
-
   --transition-speed: 0.3s;
+}
+
+:root.light-mode {
+  --secondary-color: #ffffff;
+  --bg-color-main: #f5f6fa;
+  --text-color-main: #2d3436;
+  --overlay-bg: rgba(0, 0, 0, 0.05);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --heading-color: #2c3e50;
+  --skeleton-light: rgba(0, 0, 0, 0.05);
+  --skeleton-dark: rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -21,9 +34,10 @@
 
 body {
   font-family: var(--font-main);
-  background-color: var(--bg-color-dark);
-  color: var(--text-color-dark);
+  background-color: var(--bg-color-main);
+  color: var(--text-color-main);
   line-height: 1.6;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 .container {
@@ -32,7 +46,6 @@ body {
   margin: 0 auto;
 }
 
-/* Basis lay-out */
 .navbar {
   background-color: var(--secondary-color);
   padding: 1rem 0;
@@ -40,6 +53,13 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background-color var(--transition-speed);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navbar h1 {
@@ -50,6 +70,18 @@ body {
   letter-spacing: 2px;
 }
 
+.theme-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: transform var(--transition-speed);
+}
+
+.theme-btn:hover {
+  transform: scale(1.1) rotate(15deg);
+}
+
 main {
   padding: 2rem 0;
 }
@@ -58,7 +90,6 @@ main {
   display: none !important;
 }
 
-/* Bedieningspaneel */
 .controls-section {
   display: flex;
   justify-content: space-between;
@@ -70,6 +101,7 @@ main {
   background-color: var(--secondary-color);
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: background-color var(--transition-speed);
 }
 
 .search-container {
@@ -81,12 +113,12 @@ main {
   width: 100%;
   padding: 0.8rem 1.2rem;
   border-radius: 8px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  background-color: var(--bg-color-dark);
-  color: var(--text-color-dark);
+  border: 2px solid var(--border-color);
+  background-color: var(--bg-color-main);
+  color: var(--text-color-main);
   font-family: var(--font-main);
   font-size: 1rem;
-  transition: border-color var(--transition-speed);
+  transition: border-color var(--transition-speed), background-color var(--transition-speed);
 }
 
 .search-input:focus {
@@ -103,15 +135,15 @@ main {
 .filter-select {
   padding: 0.8rem 1.2rem;
   border-radius: 8px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  background-color: var(--bg-color-dark);
-  color: var(--text-color-dark);
+  border: 2px solid var(--border-color);
+  background-color: var(--bg-color-main);
+  color: var(--text-color-main);
   font-family: var(--font-main);
   font-size: 1rem;
   cursor: pointer;
-  transition: border-color var(--transition-speed);
+  transition: border-color var(--transition-speed), background-color var(--transition-speed);
   appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dcdde1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff6b00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1em;
@@ -123,7 +155,6 @@ main {
   border-color: var(--primary-color);
 }
 
-/* Favorieten Toggle */
 .favorites-toggle-btn {
   background-image: none;
   padding-right: 1.2rem;
