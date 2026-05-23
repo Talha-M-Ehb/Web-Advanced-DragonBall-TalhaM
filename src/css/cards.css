@@ -1,4 +1,4 @@
-/* Grid Lay-out */
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -6,13 +6,12 @@
   padding: 2rem 0;
 }
 
-/* Personagekaart */
 .character-card {
   background-color: var(--secondary-color);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -25,13 +24,12 @@
   box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
 }
 
-/* Favorieten Knop */
 .favorite-btn {
   position: absolute;
   top: 15px;
   right: 15px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--overlay-bg);
+  border: 1px solid var(--border-color);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -46,12 +44,12 @@
 .favorite-btn svg {
   width: 20px;
   height: 20px;
-  stroke: #fff;
+  stroke: var(--text-color-main);
   transition: all 0.3s ease;
 }
 
 .favorite-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--bg-color-main);
   transform: scale(1.15);
   border-color: rgba(255, 71, 87, 0.5);
 }
@@ -66,10 +64,9 @@
   border-color: rgba(255, 71, 87, 0.3);
 }
 
-/* Kaartafbeelding Gebied */
 .card-image-wrapper {
   height: 300px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--overlay-bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,19 +74,10 @@
   position: relative;
 }
 
-.card-image-wrapper img {
-  height: 100%;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-  transition: transform 0.5s ease;
-}
-
 .character-card:hover .card-image-wrapper img {
   transform: scale(1.1);
 }
 
-/* Kaartinhoud Gebied */
 .card-content {
   padding: 1.5rem;
   flex-grow: 1;
@@ -115,7 +103,7 @@
 
 .character-ki {
   font-weight: 600;
-  color: var(--text-color-dark);
+  color: var(--text-color-main);
   font-size: 0.95rem;
 }
 
@@ -131,13 +119,12 @@
   padding: 3rem;
 }
 
-/* ------------------- Laadskeletten ------------------- */
 .skeleton {
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.05) 25%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0.05) 75%
+    var(--skeleton-light) 25%,
+    var(--skeleton-dark) 50%,
+    var(--skeleton-light) 75%
   );
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
@@ -174,3 +161,24 @@
   width: 40%;
   margin-top: 0.5rem;
 }
+
+.card-image-wrapper img {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
